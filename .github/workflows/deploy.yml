@@ -15,8 +15,8 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
       - name: Build project
         run: mvn clean package -DskipTests
@@ -29,8 +29,9 @@ jobs:
 
       - name: Push image
         run: |
-          docker tag log-analyzer ${{ secrets.DOCKER_USERNAME }}/log-analyzer:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/log-analyzer:latest
+          USER=${{ secrets.DOCKER_USERNAME }}
+          docker tag log-analyzer $USER/log-analyzer:latest
+          docker push $USER/log-analyzer:latest
 
   deploy:
     runs-on: ubuntu-latest
