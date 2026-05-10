@@ -47,6 +47,4 @@ jobs:
             docker pull ${{ secrets.DOCKER_USERNAME }}/log-analyzer:latest
             docker stop app || true
             docker rm app || true
-            docker run -d --name app -p 7070:7070 ${{ secrets.DOCKER_USERNAME }}/log-analyzer:latestgit add .
-  git commit -m "add CI/CD pipeline"
-  git push origin main
+            docker run -d --name app -p 7070:7070 ${{ secrets.DOCKER_USERNAME }}/log-analyzer:latest
