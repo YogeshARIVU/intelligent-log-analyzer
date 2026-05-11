@@ -1,11 +1,18 @@
-FROM eclipse-temurin:25
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
 
-COPY . .
+COPY pom.xml .
+COPY src ./src
 
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 7070
 
-CMD ["java", "-jar", "target/intelligent-log-analyzer-1.0.0.jar"]
+CMD ["java", "-jar", "app.jar"]
