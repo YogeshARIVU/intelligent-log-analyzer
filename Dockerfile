@@ -2,8 +2,10 @@ FROM eclipse-temurin:25
 
 WORKDIR /app
 
-COPY target/intelligent-log-analyzer-1.0.0.jar app.jar
+COPY . .
+
+RUN ./mvnw clean package -DskipTests
 
 EXPOSE 7070
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/intelligent-log-analyzer-1.0.0.jar"]
